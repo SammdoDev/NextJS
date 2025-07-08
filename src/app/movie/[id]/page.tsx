@@ -2,11 +2,15 @@ import Navbar from "@/components/Navbar";
 import MovieCard from "@/components/MovieCard";
 import { notFound } from "next/navigation";
 
-export default async function MovieDetailPage({
-  params,
-}: {
-  params: { id: string };
-}) {
+import { Metadata } from "next";
+
+type PageProps = {
+  params: {
+    id: string;
+  };
+};
+
+export default async function MovieDetailPage({ params }: PageProps) {
   const apiKey = process.env.TMDB_API_KEY;
 
   const [res, trailerRes] = await Promise.all([
