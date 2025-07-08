@@ -8,7 +8,7 @@ export default function Home() {
       <Navbar />
 
       <section className="text-center py-6 text-white">
-        <h1 className="text-4xl font-bold mb-2">Welcome to PremiereTix</h1>
+        <h1 className="text-4xl font-bold mb-2">Welcome to FilminID</h1>
         <p className="text-gray-300">Temukan film favoritmu & pesan tiket dengan mudah.</p>
       </section>
 

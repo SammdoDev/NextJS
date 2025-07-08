@@ -33,6 +33,7 @@ export default function NowPlaying() {
         {movies.map((movie, index) => (
           <MovieCard
             key={index}
+            id={movie.id}
             title={movie.title}
             release_date={movie.release_date}
             poster_path={movie.poster_path}
