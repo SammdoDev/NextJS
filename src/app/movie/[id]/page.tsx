@@ -4,13 +4,11 @@ import { notFound } from "next/navigation";
 
 import { Metadata } from "next";
 
-type PageProps = {
-  params: {
-    id: string;
-  };
-};
-
-export default async function MovieDetailPage({ params }: PageProps) {
+export default async function MovieDetailPage({
+  params,
+}: {
+  params: { id: string };
+}) {
   const apiKey = process.env.TMDB_API_KEY;
 
   const [res, trailerRes] = await Promise.all([
