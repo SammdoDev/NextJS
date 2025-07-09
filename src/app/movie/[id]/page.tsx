@@ -1,11 +1,13 @@
 import Navbar from "@/components/Navbar";
 import MovieCard from "@/components/MovieCard";
 import { notFound } from "next/navigation";
+export const dynamic = "force-dynamic";
+
 
 export default async function MovieDetailPage({
   params,
 }: {
-  params: { id: string };
+  params: { id: any };
 }) {
   const apiKey = process.env.TMDB_API_KEY;
 
