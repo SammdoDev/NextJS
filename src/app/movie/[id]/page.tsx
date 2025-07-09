@@ -1,14 +1,11 @@
 import Navbar from "@/components/Navbar";
 import MovieCard from "@/components/MovieCard";
 import { notFound } from "next/navigation";
+import dynamicImport from "next/dynamic";
 export const dynamic = "force-dynamic";
+import ClientRecommendationSlider from "@/components/ClientRecommendationSlider";
 
-
-export default async function MovieDetailPage({
-  params,
-}: {
-  params: { id: any };
-}) {
+const MovieDetailPage = async ({ params }: { params: { id: string } }) => {
   const apiKey = process.env.TMDB_API_KEY;
 
   const [res, trailerRes] = await Promise.all([
@@ -90,7 +87,6 @@ export default async function MovieDetailPage({
           </button>
         </div>
 
-        {/* Credits */}
         <p className="mt-6 text-sm">
           <strong>Directed by: </strong>
           {movie.credits.crew
@@ -110,19 +106,10 @@ export default async function MovieDetailPage({
         <p className="mt-4 text-gray-300">{movie.overview}</p>
 
         <h2 className="text-2xl font-bold mt-12 mb-4">You Might Also Like</h2>
-        <div className="flex flex-row overflow-x-auto gap-4 pb-2">
-          {recommendations.map((m: any) => (
-            <MovieCard
-              key={m.id}
-              id={m.id}
-              title={m.title}
-              release_date={m.release_date}
-              poster_path={m.poster_path}
-              vote_average={m.vote_average}
-            />
-          ))}
-        </div>
+        <ClientRecommendationSlider movies={recommendations} />
       </div>
     </div>
   );
-}
+};
+
+export default MovieDetailPage;

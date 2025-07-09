@@ -2,9 +2,9 @@
 
 import { Menu as MenuIcon, X, Search } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import React, { useState } from "react";
 
-export default function Navbar() {
+const Navbar: React.FC = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
@@ -40,6 +40,15 @@ export default function Navbar() {
             Filmin<span className="text-blue-500">ID</span>
           </Link>
 
+          <ul className="flex flex-col md:flex-row gap-6 text-white">
+            <li className="hover:text-blue-500 transition-colors font-semibold duration-300">
+              <a href="/">Home</a>
+            </li>
+            <li className="hover:text-blue-500 transition-colors font-semibold duration-300">
+              <a href="/genre">Genre</a>
+            </li>
+          </ul>
+
           <div className="relative w-72">
             <input
               type="text"
@@ -68,13 +77,15 @@ export default function Navbar() {
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
           </div>
 
-          <select className="w-full bg-gray-800 text-white border border-gray-700 rounded-full px-4 py-2">
-            <option value="jakarta">Jakarta</option>
-            <option value="bandung">Bandung</option>
-            <option value="surabaya">Surabaya</option>
-          </select>
+          <ul>
+            <li>
+              <a href="/">Home</a>
+            </li>
+          </ul>
         </div>
       )}
     </header>
   );
-}
+};
+
+export default Navbar;

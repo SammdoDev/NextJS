@@ -1,14 +1,20 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import Slider from "react-slick";
 import MovieCard from "./MovieCard";
 
-type Props = {
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
+import { PrevArrow, NextArrow } from "@/components/CustomArrows";
+
+type MovieProps = {
   title: string;
   apiUrl: string;
 };
 
-type Movie = {
+type MovieSectionProps = {
   id: number;
   title: string;
   release_date: string;
@@ -18,39 +24,61 @@ type Movie = {
   genre_ids: number[];
 };
 
-export default function MovieSection({ title, apiUrl }: Props) {
-  const [movies, setMovies] = useState<Movie[]>([]);
-  const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
+const MovieSection: React.FC<MovieProps> = ({ title, apiUrl }) => {
+  const [movies, setMovies] = useState<MovieSectionProps[]>([]);
+  const fetchMovies = async () => {
+    const res = await fetch(apiUrl);
+    const data = await res.json();
+    setMovies(data.results);
+  };
 
   useEffect(() => {
-    const fetchMovies = async () => {
-      const res = await fetch(apiUrl);
-      const data = await res.json();
-      setMovies(data.results);
-    };
-
     fetchMovies();
   }, [apiUrl]);
+
+  const settings = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 5,
+    slidesToScroll: 2,
+    nextArrow: <NextArrow />,
+    prevArrow: <PrevArrow />,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: { slidesToShow: 4, slidesToScroll: 2 },
+      },
+      {
+        breakpoint: 768,
+        settings: { slidesToShow: 2, slidesToScroll: 1 },
+      },
+      {
+        breakpoint: 480,
+        settings: { slidesToShow: 1, slidesToScroll: 1 },
+      },
+    ],
+  };
 
   return (
     <section className="px-4 py-8 w-full text-white">
       <h2 className="text-2xl font-bold mb-6">{title}</h2>
 
-      <div className="flex flex-row overflow-x-auto gap-4 pb-2">
+      <Slider {...settings} className="-mx-2">
         {movies.map((movie) => (
-          <MovieCard
-            key={movie.id}
-            id={movie.id}
-            title={movie.title}
-            release_date={movie.release_date}
-            poster_path={movie.poster_path}
-            vote_average={movie.vote_average}
-            onClick={() => setSelectedMovie(movie)}
-          />
+          <div key={movie.id} className="px-2">
+            <MovieCard
+              id={movie.id}
+              title={movie.title}
+              release_date={movie.release_date}
+              poster_path={movie.poster_path}
+              vote_average={movie.vote_average}
+            />
+          </div>
         ))}
-      </div>
-
-
+      </Slider>
     </section>
   );
-}
+};
+
+export default MovieSection;

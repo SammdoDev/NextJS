@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 
 const icons = [Home, Grid2X2, Clapperboard, Bookmark, Download, Settings];
-const titles = ["Home", "Genre", "Film", "Bookmark", "Download", "Setting"];
+const titles = ["Home", "Now Playing", "Film", "Bookmark", "Download", "Setting"];
 const title = [];
 const colors = [
   "bg-red-100 text-red-600 border-red-300",
